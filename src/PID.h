@@ -1,13 +1,13 @@
 #ifndef PID_H
 #define PID_H
-#endif
+
 #include <functional>
 
-template <class T>
+template <class T, typename U = double>
 class PIDController
 {
 public:
-  PIDController(double p, double i, double d, std::function<T()> pidSource, std::function<void(T output)> pidOutput);
+  PIDController(U p, U i, U d, std::function<T()> pidSource, std::function<void(T output)> pidOutput);
   T tick();
   void setTarget(T t);
   T getTarget();
@@ -39,20 +39,21 @@ public:
   T getFeedbackWrapLowerBound();
   T getFeedbackWrapUpperBound();
 
-  void setPID(double p, double i, double d);
-  void setP(double p);
-  void setI(double i);
-  void setD(double d);
-  double getP();
-  double getI();
-  double getD();
+  void setPID(U p, U i, U d);
+  void setP(U p);
+  void setI(U i);
+  void setD(U d);
+  U getP();
+  U getI();
+  U getD();
   void setPIDSource(T (*pidSource)());
   void setPIDOutput(void (*pidOutput)(T output));
   void registerTimeFunction(unsigned long (*getSystemTime)());
+
 private:
-  double _p;
-  double _i;
-  double _d;
+  U _p;
+  U _i;
+  U _d;
   T target;
   T output;
   bool enabled;
@@ -81,3 +82,5 @@ private:
   std::function<void(T output)> _pidOutput;
   unsigned long (*_getSystemTime)();
 };
+
+#endif
