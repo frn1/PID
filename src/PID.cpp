@@ -721,7 +721,5 @@ void PIDController<T, U>::registerTimeFunction(unsigned long (*getSystemTime)())
  * have this class instantiated with.  Basically, it prepares the program to
  * make a PIDController of any of these defined types.
  */
-template class PIDController<int>;
-template class PIDController<long>;
-template class PIDController<float>;
-template class PIDController<double>;
+// Why does C++ have to be this way... *sigh*
+template class PIDController<int, float>;
